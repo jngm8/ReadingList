@@ -1,25 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import BookCreate from "./components/BookCreate";
+import BookList from "./components/BookList";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    // How to modify an array or object in state cases : https://state-updates.vercel.app/
+
+    const [books,setBooks] = useState([]);
+
+
+    const updateBook = (id,newTitle) => {
+        // code to update the book´s title
+        const updatedBooks = books.map((book) => {
+            if (book.id === id){
+                return {...book, title:newTitle};
+            }
+            return book;
+            
+        });
+
+        setBooks(updatedBooks);
+    }
+
+
+    const deleteBook = (id) =>{
+
+        const updatedBooks = books.filter((book) => {
+                return book.id !== id;
+            })
+        
+
+        setBooks(updatedBooks);
+
+    }
+
+    const handleCreateBook = (title) => {
+        const updatedBooks = [
+            ...books,
+            {   
+                id : Math.round(Math.random() * 9999),
+                title
+            }
+        ]
+        setBooks(updatedBooks);
+    }
+
+    return (
+        <div className="app">
+            {/* Pass the event handler to then receive it from child BookCreate */}
+           <BookCreate onCreate={handleCreateBook}/>
+           {/* Pass the list of books in the list state */}
+           <BookList books={books} onDelete={deleteBook} onUpdate={updateBook}/>
+        </div>
+    )
 }
 
 export default App;
