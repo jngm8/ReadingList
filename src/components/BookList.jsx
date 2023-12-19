@@ -1,7 +1,5 @@
 import BookShow from "./BookShow";
 
-
-
 function BookList({books,onDelete,onUpdate}){
 
     const renderBooks = books.map((book) => {
@@ -9,7 +7,7 @@ function BookList({books,onDelete,onUpdate}){
     })
 
 return (
-    <div>
+    <div className="book-list">
         {renderBooks}
     </div>
 )

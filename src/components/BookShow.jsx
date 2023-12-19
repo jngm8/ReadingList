@@ -14,6 +14,7 @@ function BookShow({book,onDelete,onUpdate}){
     }
 
     const handleSubmit = (id,newTitle) => {
+        setEdit(false);
         onUpdate(id,newTitle);
     }
 
@@ -26,6 +27,7 @@ function BookShow({book,onDelete,onUpdate}){
 
     return (
         <div className="book-show">
+            <img alt="book" src={`https://picsum.photos/seed/${book.id}/300/200`}/>
             <div>{cardContent}</div>
             <div className="actions">
                 <button className="edit" onClick={onEditClick}>Edit</button>

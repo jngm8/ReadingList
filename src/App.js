@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
+import axios from "axios";
 
 function App() {
 
@@ -8,45 +9,59 @@ function App() {
 
     const [books,setBooks] = useState([]);
 
+    const getBooks = async () => {
 
-    const updateBook = (id,newTitle) => {
-        // code to update the book´s title
+        const response = await axios.get("http://localhost:3001/books");
+        console.log(response.data);
+        
+        setBooks(response.data);
+    }
+
+    // Only call it once when the app start
+    useEffect(() => {
+        getBooks();
+    },[]);
+
+
+    const updateBook = async (id,newTitle) => {
+
+        const response = await axios.put(`http://localhost:3001/books/${id}`,{
+            title: newTitle
+        }        
+        )
+
         const updatedBooks = books.map((book) => {
             if (book.id === id){
-                return {...book, title:newTitle};
+                return {...book, ...response.data}; // ...response.data to bring all the properties updated
             }
             return book;
-            
         });
-
         setBooks(updatedBooks);
     }
 
+    const deleteBook = async (id) =>{
 
-    const deleteBook = (id) =>{
-
+        const response = await axios.delete(`http://localhost:3001/books/${id}`)
         const updatedBooks = books.filter((book) => {
                 return book.id !== id;
             })
-        
-
         setBooks(updatedBooks);
-
     }
 
-    const handleCreateBook = (title) => {
+    const handleCreateBook = async (title) => {
+        const response = await axios.post("http://localhost:3001/books",{
+            title
+        })
         const updatedBooks = [
             ...books,
-            {   
-                id : Math.round(Math.random() * 9999),
-                title
-            }
+            response.data
         ]
         setBooks(updatedBooks);
     }
 
     return (
         <div className="app">
+            <h1>Reading List</h1>
             {/* Pass the event handler to then receive it from child BookCreate */}
            <BookCreate onCreate={handleCreateBook}/>
            {/* Pass the list of books in the list state */}
