@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React, {useState,useContext} from "react";
+import BooksContext from "../context/books";
 
-function BookCreate({onCreate}) {
+function BookCreate() {
 
     const [title,setTitle] = useState("")
+
+    const {handleCreateBook} = useContext(BooksContext);
 
     // Used to change the box to whatever the user inputs
     const handleChange = (event) => {
@@ -12,7 +15,7 @@ function BookCreate({onCreate}) {
     // Used to submit the title to the parent component (App)
     const handleSubmit = (event) => {
         event.preventDefault();
-        onCreate(title);
+        handleCreateBook(title);
         setTitle("");
 
     }

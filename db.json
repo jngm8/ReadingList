@@ -1,32 +1,16 @@
 {
   "books": [
     {
-      "title": "Four Hour Workweek",
+      "title": "Shoe Dog",
       "id": 1
     },
     {
-      "title": "48 Laws of Power",
+      "title": "The Millionaire Fastlane",
       "id": 2
     },
     {
-      "title": "Elon musk",
-      "id": 4
-    },
-    {
-      "title": "Meditations",
-      "id": 5
-    },
-    {
-      "title": "Como Salir del Pozo",
-      "id": 7
-    },
-    {
-      "title": "Elon Musk",
-      "id": 8
-    },
-    {
-      "title": "Cant Hurt Me",
-      "id": 9
+      "title": "Atomic Habits",
+      "id": 3
     }
   ]
 }
