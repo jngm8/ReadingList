@@ -1,11 +1,10 @@
-import React, {useState,useContext} from "react";
-import BooksContext from "../context/books";
-
+import React, {useState} from "react";
+import useBookContext from "../hooks/use-books-hooks";
 function BookCreate() {
 
     const [title,setTitle] = useState("")
 
-    const {handleCreateBook} = useContext(BooksContext);
+    const {handleCreateBook} = useBookContext();
 
     // Used to change the box to whatever the user inputs
     const handleChange = (event) => {
